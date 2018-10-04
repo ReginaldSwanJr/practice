@@ -28,6 +28,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		} else {
 			// Turn autocommit off:
 			mysqli_autocommit($dbc, FALSE);
+			
+			// insert transaction into the data base:
+			$q = "INSERT INTO transactions (to_account_id, from_account_id, amount) VALUES ('$to','$from','$amount')";
+			$r = @mysqli_query($dbc, $q); // Run the query.
+			
 
 			$q = "UPDATE accounts SET balance=balance-$amount WHERE account_id=$from";
 			$r = @mysqli_query($dbc, $q);
@@ -39,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 					mysqli_commit($dbc);
 					echo '<p>The transfer was a success!</p>';
-
+					
 				} else {
 					mysqli_rollback($dbc);
 					echo '<p>The transfer could not be made due to a system error. We apologize for any inconvenience.</p>'; // Public message.
@@ -57,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	} else { // Invalid submitted values.
 		echo '<p class="error">Please select a valid "from" and "to" account and enter a numeric amount to transfer.</p>';
 	}
-
+		
 } // End of submit conditional.
 
 // Always show the form...
