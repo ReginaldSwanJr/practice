@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		// Register the user in the database...
 
 		// Make the query:
-		$q = "INSERT INTO users (first_name, last_name, feedback) VALUES ('$fn', '$ln', '$fb')";
+		$q = "INSERT INTO customers (first_name, last_name, feedback) VALUES ('$fn', '$ln', '$fb')";
 		$r = @mysqli_query($dbc, $q); // Run the query.
 		if ($r) { // If it ran OK.
 

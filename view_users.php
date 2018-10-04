@@ -16,7 +16,7 @@ if (isset($_GET['p']) && is_numeric($_GET['p'])) { // Already been determined.
 	$pages = $_GET['p'];
 } else { // Need to determine.
  	// Count the number of records:
-	$q = "SELECT COUNT(user_id) FROM users";
+	$q = "SELECT COUNT(customer_id) FROM users";
 	$r = @mysqli_query($dbc, $q);
 	$row = @mysqli_fetch_array($r, MYSQLI_NUM);
 	$records = $row[0];
@@ -47,17 +47,14 @@ switch ($sort) {
 	case 'fn':
 		$order_by = 'first_name ASC';
 		break;
-	case 'rd':
-		$order_by = 'registration_date ASC';
-		break;
 	default:
-		$order_by = 'registration_date ASC';
-		$sort = 'rd';
+		$order_by = 'Customer ID ASC';
+		$sort = 'ln';
 		break;
 }
 
 // Define the query:
-$q = "SELECT last_name, first_name, DATE_FORMAT(registration_date, '%M %d, %Y') AS dr, user_id FROM users ORDER BY $order_by LIMIT $start, $display";
+$q = "SELECT last_name, first_name, customer_id FROM customers ORDER BY $order_by LIMIT $start, $display";
 $r = @mysqli_query($dbc, $q); // Run the query.
 
 // Table header:
@@ -79,8 +76,8 @@ $bg = '#eeeeee';
 while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
 	$bg = ($bg=='#eeeeee' ? '#ffffff' : '#eeeeee');
 		echo '<tr bgcolor="' . $bg . '">
-		<td align="left"><a href="edit_user.php?id=' . $row['user_id'] . '">Edit</a></td>
-		<td align="left"><a href="delete_user.php?id=' . $row['user_id'] . '">Delete</a></td>
+		<td align="left"><a href="edit_user.php?id=' . $row['customer_id'] . '">Edit</a></td>
+		<td align="left"><a href="delete_user.php?id=' . $row['customer_id'] . '">Delete</a></td>
 		<td align="left">' . $row['last_name'] . '</td>
 		<td align="left">' . $row['first_name'] . '</td>
 		<td align="left">' . $row['dr'] . '</td>
