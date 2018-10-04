@@ -26,8 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	}
 
 	// Check for an email address:
-	if (empty($_POST['email'])) {
-		$errors[] = 'You forgot to enter your email address.';
+	if (empty($_POST['id'])) {
+		$errors[] = 'You forgot to enter your emai.';
 	} else {
 		$e = mysqli_real_escape_string($dbc, trim($_POST['email']));
 	}
@@ -89,7 +89,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <form action="register.php" method="post">
 	<p>First Name: <input type="text" name="first_name" size="15" maxlength="20" value="<?php if (isset($_POST['first_name'])) echo $_POST['first_name']; ?>"></p>
 	<p>Last Name: <input type="text" name="last_name" size="15" maxlength="40" value="<?php if (isset($_POST['last_name'])) echo $_POST['last_name']; ?>"></p>
-	<p>Email Address: <input type="email" name="email" size="20" maxlength="60" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>" > </p>
 	<p>Feedback: <input type="textarea" name="feedb" value="<?php if (isset($_POST['feedb'])) echo $_POST['feedb']; ?>" ></p>
 	<p><input type="submit" name="submit" value="Feedback"></p>
 </form>
